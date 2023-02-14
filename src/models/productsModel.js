@@ -34,9 +34,20 @@ const deleteProduct = async (id) => {
   return isDelete;
 };
 
+const updateProducts = async (id, product) => {
+  const { name } = product;
+  const isFound = await getProductById(id);
+  if (isFound.message) return { message: 'Product not found' };
+  const query = 'UPDATE StoreManager.products SET name = ?';
+  const updated = await connection.execute(query, [name]);
+
+  return updated;
+};
+
 module.exports = {
   getAll,
   getProductById,
   addProduct,
   deleteProduct,
+  updateProducts,
 };
