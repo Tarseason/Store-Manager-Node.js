@@ -33,7 +33,6 @@ AND
 ORDER BY sp.sale_id ASC , product_id ASC`,
     [id],
   );
-  // console.log(sale);
   if (sale.length < 1) return { message: 'Sale not found' };
   return sale;
 };
