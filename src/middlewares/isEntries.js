@@ -1,11 +1,11 @@
 const isName = (req, res, next) => {
   const { body } = req;
 
-  if (body.name === undefined) {
-    return res.status(400).json({ message: '"name" is required' });
-  }
+  // if (body.name === undefined) {
+  //   return res.status(400).json({ message: '"name" is required' });
+  // }
 
-  if (body.name === '') {
+  if (!body.name) {
     return res.status(400).json({ message: '"name" is required' });
   }
   if (body.name.length < 5) {
