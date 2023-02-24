@@ -27,19 +27,14 @@ const addProduct = async (name) => {
   return newProduct;
 };
 
+const updateProducts = async (id, name) => {
+  const query = 'UPDATE StoreManager.products SET name = ? WHERE id = ?';
+  await connection.execute(query, [name, id]);
+};
+
 const deleteProduct = async (id) => {
   const isDelete = await connection.execute('DELETE FROM StoreManager.products WHERE id = ?', [id]);
   return isDelete;
-};
-
-const updateProducts = async (id, product) => {
-  const { name } = product;
-  const isFound = await getProductById(id);
-  if (isFound.message) return { message: 'Product not found' };
-  const query = 'UPDATE StoreManager.products SET name = ?';
-  const updated = await connection.execute(query, [name]);
-
-  return updated;
 };
 
 module.exports = {

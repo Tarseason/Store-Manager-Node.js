@@ -23,8 +23,33 @@ const addProduct = async (name) => {
   return { type: null, message: newProduct };
 };
 
+const updateProducts = async (id, name) => {
+  const error = schema.validateId(id);
+  if (error.type) return error;
+
+  const isFound = await productsModel.getProductById(id);
+  if (!isFound) return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+
+  await productsModel.updateProducts(id, name);
+  const productUpdated = await productsModel.getProductById(id);
+  return { type: null, message: productUpdated };
+};
+
+const deleteProduct = async (id) => {
+  const error = schema.validateId(id);
+  if (error.type) return error;
+
+  const isFound = await productsModel.getProductById(id);
+  if (!isFound) return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+
+  await productsModel.deleteProduct(id);
+  return { type: null, message: '' };
+};
+
 module.exports = {
   findAll,
   getProductById,
   addProduct,
+  updateProducts,
+  deleteProduct,
 };
