@@ -16,9 +16,11 @@ const getProductById = async (req, res) => {
 };
 
 const addProduct = async (req, res) => {
-  const addedProduct = await productsModels.addProduct(req.body);
+  const { name } = req.body;
+  const { type, message } = await productsService.addProduct(name);
+  if (type) return res.status(400).json(message);
 
-  return res.status(201).json(addedProduct);
+  return res.status(201).json(message);
 };
 
 const deleteProduct = async (req, res) => {
