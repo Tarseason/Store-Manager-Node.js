@@ -1,5 +1,5 @@
 const { productsModel } = require('../models');
-const schema = require('./validations/validadeProducts');
+const schema = require('./validations/validateProducts');
 
 const findAll = async () => {
   const products = await productsModel.getAll();

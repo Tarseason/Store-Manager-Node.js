@@ -1,4 +1,6 @@
-const products = [
+const invalId = '1';
+
+const allProducts = [
 	{
 		"id": 1,
 		"name": "Martelo de Thor"
@@ -13,4 +15,7 @@ const products = [
 	}
 ]
 
-module.exports = {products}
+module.exports = {
+  invalId,
+  allProducts,
+}
