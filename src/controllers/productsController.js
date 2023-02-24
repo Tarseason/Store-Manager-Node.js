@@ -1,15 +1,18 @@
 const productsModels = require('../models/productsModel');
+const { productsService } = require('../services');
 
 const getAll = async (req, res) => {
-  const products = await productsModels.getAll();
-  res.status(200).json(products);
+  const { type, message } = await productsService.findAll();
+ 
+  if (type) return res.status(404).json(message);
+  return res.status(200).json(message);
 };
 
 const getProductById = async (req, res) => {
   const { id } = req.params;
-  const product = await productsModels.getProductById(id);
-  if (product.message) return res.status(404).json({ message: product.message });
-  return res.status(200).json(product);
+  const { type, message } = await productsService.getProductById(id);
+  if (type) return res.status(404).json({ message });
+  return res.status(200).json(message);
 };
 
 const addProduct = async (req, res) => {

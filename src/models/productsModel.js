@@ -12,7 +12,6 @@ const getProductById = async (id) => {
     'SELECT * FROM StoreManager.products WHERE id = ?',
     [id],
   );
-  if (!product) return { message: 'Product not found' };
   return product;
 };
 
