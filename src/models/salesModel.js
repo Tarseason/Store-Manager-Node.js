@@ -29,11 +29,10 @@ FROM
 ON
     sa.id = sp.sale_id
 AND 
-    sa.id = (?)
+    sa.id = ?
 ORDER BY sp.sale_id ASC , product_id ASC`,
     [id],
   );
-  if (sale.length < 1) return { message: 'Sale not found' };
   return sale;
 };
 

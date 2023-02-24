@@ -13,7 +13,7 @@ const {
 } = require('./mock/products.controller.mock')
 
 describe('Teste de unidade do productsController', function () {
-  it('Retorno de sucesso | status 200 e produtos', async function () {
+  it('GET - Retorno de sucesso | status 200 e produtos', async function () {
     const res = {}
     const req = {}
 
@@ -28,7 +28,7 @@ describe('Teste de unidade do productsController', function () {
     expect(res.json).to.have.been.calledWith(allProducts)
   })
 
-  it('Retorno de sucesso de um produto especifico', async function () {
+  it('GET - Retorno de sucesso de um produto especifico', async function () {
     const res = {};
       const req = {
         params: { id: 1 },
@@ -45,7 +45,7 @@ describe('Teste de unidade do productsController', function () {
     // expect(req.json).to.have.been.calledWith(newProductMock);
   })
 
-  it('Retorno de erro caso id invalido', async function () {
+  it('GET - Retorno de erro caso id invalido', async function () {
     const res = {}
     const req = {
       params: {id: 'abc'},
@@ -62,7 +62,7 @@ describe('Teste de unidade do productsController', function () {
     expect(res.json).to.have.been.calledWith({message: '"id" must be a number'});
   })
 
-  it('Retorno de erro coso id inexistente', async function () {
+  it('GET - Retorno de erro caso id inexistente', async function () {
     const res = {}
     const req = {
       params: {id: 9999},
@@ -78,6 +78,27 @@ describe('Teste de unidade do productsController', function () {
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith({message: 'Product not found'});
   
+  })
+
+  it('POST - Retorno do cadastro de um novo Produto', async function () {
+    const newProduct = {
+    "id": 4,
+    "name": "Lâmina de Ixtal"
+  } 
+    const res = {}
+    const req = {
+      body: { name: 'Lâmina de Ixtal' }
+    }
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon.stub(productsService, 'addProduct')
+      .resolves({ type: null, message: newProduct })
+    
+    await productsController.addProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith(newProduct)
   })
 
   afterEach(function () {

@@ -10,7 +10,11 @@ const allProducts = [
 	{
 		"id": 3,
 		"name": "Escudo do Capitão América"
-	}
+  },
+  {
+    "id": 4,
+    "name": "Lâmina de Ixtal"
+  }
 ]
 
 module.exports = {

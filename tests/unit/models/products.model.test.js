@@ -21,6 +21,14 @@ describe('Testa Unidade Model de Products', function () {
     expect(result).to.be.deep.equal(allProducts[0])
   })
 
+  it('Adiciona novo produto', async function () {
+    sinon.stub(connection, 'execute').resolves([[allProducts[3]]]);
+
+    const result = await productsModel.addProduct({name:'Lâmina de Ixtal'})
+
+    expect(result).to.be.deep.equal({id: 4, name:'Lâmina de Ixtal'});
+  })
+
   afterEach(function () {
     sinon.restore()
   })
