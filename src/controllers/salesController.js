@@ -20,8 +20,15 @@ const salesDelete = async (req, res) => {
   return res.status(204).end();
 };
 
+const createSales = async (req, res) => {
+  const saleId = await salesService.createIdSales();
+  await salesService.createSales(req.body, saleId);
+  return res.status(201).send({ id: Number(saleId), itemsSold: [...req.body] });
+};
+
 module.exports = {
   getAllSales,
   getSaleById,
   salesDelete,
+  createSales,
 };

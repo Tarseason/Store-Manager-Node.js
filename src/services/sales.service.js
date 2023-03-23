@@ -26,8 +26,21 @@ const salesDelete = async (id) => {
   return { type: null, message: '' };
 };
 
+const createIdSales = async () => {
+  const result = await salesModel.createIdSales();
+  return result;
+};
+
+const createSales = async (product, saleId) => {
+  const result = await product.map((item) => salesModel.createSales(item, saleId));
+  await Promise.all(result);
+  return saleId;
+};
+
 module.exports = {
   findAll,
   getSaleById,
   salesDelete,
+  createIdSales,
+  createSales,
 };
