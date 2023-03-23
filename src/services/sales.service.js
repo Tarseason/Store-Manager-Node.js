@@ -15,7 +15,19 @@ const getSaleById = async (id) => {
   return { type: null, message: sale };
 };
 
+const salesDelete = async (id) => {
+  const error = schema.validateId(id);
+  if (error.type) return error;
+
+  const isFound = await salesModel.getSaleById(id);
+  if (isFound.length === 0) return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
+
+  await salesModel.salesDelete(id);
+  return { type: null, message: '' };
+};
+
 module.exports = {
   findAll,
   getSaleById,
+  salesDelete,
 };
