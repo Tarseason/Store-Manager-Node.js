@@ -37,10 +37,18 @@ const createSales = async (product, saleId) => {
   return saleId;
 };
 
+const updateSales = async (id, product) => {
+  const result = await salesModel.updateSales(id, product);
+  const allProducts = result
+      .map((item) => ({ productId: item.productId, quantity: item.quantity }));
+  return { saleId: id, itemsUpdated: allProducts };
+};
+
 module.exports = {
   findAll,
   getSaleById,
   salesDelete,
   createIdSales,
   createSales,
+  updateSales,
 };
